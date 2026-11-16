@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make Me EMT · NREMT Practice</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="header-row">
+      <div class="branding">
+        <span class="logo" aria-hidden="true">🚑</span>
+        <span class="site-name">Make Me EMT</span>
+      </div>
+      <button id="reset-btn" class="btn btn-ghost btn-sm" aria-label="Reset progress">Reset</button>
+    </div>
+
+    <div class="stats-bar" aria-label="Progress summary">
+      <div class="stat stat-correct">
+        <span class="stat-val" id="n-correct">0</span>
+        <span class="stat-lbl">correct</span>
+      </div>
+      <div class="stat stat-wrong">
+        <span class="stat-val" id="n-wrong">0</span>
+        <span class="stat-lbl">wrong</span>
+      </div>
+      <div class="stat stat-left">
+        <span class="stat-val" id="n-remaining">—</span>
+        <span class="stat-lbl">left</span>
+      </div>
+      <div class="stat stat-cycle">
+        <span class="stat-val" id="n-cycle">1</span>
+        <span class="stat-lbl">cycle</span>
+      </div>
+    </div>
+
+    <div class="mode-bar" role="group" aria-label="Question type filter">
+      <button id="mode-exam" class="mode-btn active" aria-pressed="true">
+        Exam&nbsp;<span class="mode-count" id="count-exam"></span>
+      </button>
+      <button id="mode-all" class="mode-btn" aria-pressed="false">
+        All&nbsp;<span class="mode-count" id="count-all"></span>
+      </button>
+    </div>
+
+    <div class="progress-track" role="progressbar" aria-label="Cycle progress">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Loading -->
+    <div id="screen-loading" class="screen">
+      <div class="spinner" aria-label="Loading"></div>
+      <p>Loading question bank…</p>
+    </div>
+
+    <!-- Quiz -->
+    <div id="screen-quiz" class="screen" hidden>
+      <div class="card" id="card">
+
+        <div class="card-meta">
+          <span class="badge badge-type" id="meta-type"></span>
+          <span class="badge badge-cat" id="meta-cat"></span>
+          <span class="badge badge-diff" id="meta-diff"></span>
+        </div>
+
+        <p class="question" id="question-text"></p>
+
+        <!-- MCQ / Multi choices -->
+        <div id="choices" role="list"></div>
+
+        <!-- Multi submit -->
+        <div id="multi-submit" hidden>
+          <button class="btn btn-primary btn-block" id="multi-submit-btn">Submit Answer</button>
+        </div>
+
+        <!-- Flashcard reveal -->
+        <div id="reveal-wrap" hidden>
+          <button class="btn btn-primary btn-block" id="reveal-btn">Show Answer</button>
+          <div class="reveal-answer" id="reveal-answer" hidden></div>
+          <div class="self-report" id="self-report" hidden>
+            <button class="btn btn-correct" id="self-correct">✓ Got it</button>
+            <button class="btn btn-wrong"   id="self-wrong">✗ Still learning</button>
+          </div>
+        </div>
+
+        <!-- Feedback (after answering) -->
+        <div id="feedback" class="feedback" hidden>
+          <div class="verdict" id="verdict"></div>
+          <p class="explanation" id="explanation" hidden></p>
+          <button class="btn btn-next btn-block" id="next-btn">Next Question →</button>
+        </div>
+
+      </div><!-- .card -->
+    </div><!-- #screen-quiz -->
+
+    <!-- Cycle complete -->
+    <div id="screen-done" class="screen" hidden>
+      <div class="done-card">
+        <div class="done-icon">🎉</div>
+        <h2>Cycle <span id="done-cycle"></span> Complete!</h2>
+        <p class="done-sub">You've worked through all <strong id="done-total"></strong> questions.</p>
+        <div class="done-stats">
+          <div class="done-stat done-correct">
+            <span class="done-n" id="done-correct"></span>
+            <span class="done-lbl">correct</span>
+          </div>
+          <div class="done-stat done-wrong">
+            <span class="done-n" id="done-wrong"></span>
+            <span class="done-lbl">wrong</span>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" id="next-cycle-btn">
+          Start Cycle <span id="done-next-cycle"></span> →
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Reset modal -->
+  <div id="reset-modal" class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="reset-title">
+    <div class="modal">
+      <h3 id="reset-title">Reset All Progress?</h3>
+      <p>This clears your correct/wrong tallies and starts a fresh cycle. It cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="reset-cancel">Cancel</button>
+        <button class="btn btn-danger" id="reset-confirm">Reset Everything</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+data/raw/
+data/harvested/
+data/normalized/
+__pycache__/
+*.pyc
+.DS_Store
